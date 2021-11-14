@@ -4,6 +4,8 @@ import Stepper from "@/components/reusable/stepper";
 
 import PrimaryDetails from "./PrimaryDetails";
 import MainSpec from "./MainSpec";
+import PriceAndSupply from "./PriceAndSupply";
+import Confirmation from "./Confirmation";
 
 function PostItem() {
   const { activeStep } = useSelector((state) => state.stepperReducer);
@@ -13,6 +15,12 @@ function PostItem() {
     "Main Specifications",
     "Price And Supply",
     "Confirmation",
+  ];
+
+  const stepNamesAsConfirmation = [
+    "Primary Details",
+    "Main Specifications",
+    "Price And Supply",
   ];
 
   const stepIcons = [
@@ -30,6 +38,9 @@ function PostItem() {
       case 1:
         mainSpecRef.current.triggerSubmit();
         break;
+      case 2:
+        priceAndSupplyRef.current.triggerSubmit();
+        break;
       default:
         break;
     }
@@ -38,7 +49,6 @@ function PostItem() {
   const primaryDetailsRef = useRef();
   const mainSpecRef = useRef();
   const priceAndSupplyRef = useRef();
-  const conFirmationRef = useRef();
 
   return (
     <div className="custom-container mt-6">
@@ -56,6 +66,10 @@ function PostItem() {
       >
         {activeStep == 0 && <PrimaryDetails ref={primaryDetailsRef} />}
         {activeStep == 1 && <MainSpec ref={mainSpecRef} />}
+        {activeStep == 2 && <PriceAndSupply ref={priceAndSupplyRef} />}
+        {activeStep == 3 && (
+          <Confirmation stepNames={stepNamesAsConfirmation} />
+        )}
       </Stepper>
     </div>
   );

@@ -32055,6 +32055,20 @@ video {
   color: rgba(249, 250, 251, var(--tw-text-opacity));
 }
 
+.btn-success {
+  border-radius: 0.25rem;
+  --tw-bg-opacity: 1;
+  background-color: rgba(52, 211, 153, var(--tw-bg-opacity));
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  --tw-text-opacity: 1;
+  color: rgba(249, 250, 251, var(--tw-text-opacity));
+}
+
 .btn-disabled {
   cursor: not-allowed;
   opacity: 0.25;

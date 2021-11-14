@@ -45,11 +45,11 @@ const PrimaryDetails = forwardRef((props, ref) => {
   };
 
   const [data, setData, spreadData, reset] = useCustom({
-    category: "Laptop",
+    category: "",
     made_in: "",
     brand: "",
     months_of_use: "",
-    status: "Working",
+    status: "",
     mall_store_price: "",
     serial_number: "",
     model_number: "",
@@ -101,6 +101,9 @@ const PrimaryDetails = forwardRef((props, ref) => {
             validate(event);
           }}
         >
+          <option disabled value="">
+            -- Select Category --
+          </option>
           <option value="Laptop">Laptop</option>
           <option value="Mobile">Mobile</option>
           <option value="Tablet">Tablet</option>
@@ -189,6 +192,9 @@ const PrimaryDetails = forwardRef((props, ref) => {
             validate(event);
           }}
         >
+          <option disabled value="">
+            -- Select Status --
+          </option>
           <option value="Working">Working</option>
           <option value="Light Defect">Light Defect</option>
           <option value="Parts To Replace">Parts To Replace</option>

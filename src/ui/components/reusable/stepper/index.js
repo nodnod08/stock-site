@@ -98,11 +98,16 @@ function PostItem({ children, stepIcons, stepNames, onClickNext }) {
           </button>
           <button
             disabled={isLast}
-            className={`btn-info ${!isLast ? "" : "btn-disabled"}`}
+            className={`btn-info mr-4 ${!isLast ? "" : "btn-disabled"}`}
             onClick={onClickNext}
           >
             <i className="fas fa-arrow-circle-right"></i> Next
           </button>
+          {isLast && (
+            <button className={`btn-success`} onClick={onClickNext}>
+              <i className="fas fa-check"></i> Submit
+            </button>
+          )}
         </div>
       </div>
     </div>
