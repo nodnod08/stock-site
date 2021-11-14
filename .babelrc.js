@@ -6,7 +6,7 @@ module.exports = {
       {
         root: __dirname,
         rootPathPrefix: "@/",
-        rootPathSuffix: "src",
+        rootPathSuffix: "src/ui",
       },
     ],
     ["@babel/transform-runtime"],

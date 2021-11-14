@@ -29,6 +29,54 @@ export const HttpContext = ({ children }) => {
       ...data,
     });
   };
+  let getCookie = (cname) => {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(";");
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == " ") {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  };
+
+  let setJWT = (data) => {
+    return new Promise(function (res, rej) {
+      res(sessionStorage.setItem("auth.token", data.token));
+    });
+  };
+
+  let getToken = () => {
+    if (sessionStorage.hasOwnProperty("auth.token")) {
+      return sessionStorage.getItem("auth.token");
+    }
+
+    if (document.cookie.indexOf("auth.token") != -1) {
+      return getCookie("auth.token");
+    }
+
+    return null;
+  };
+
+  let createHeaders = () => {
+    let headers = {
+      "Content-Type": "application/json",
+    };
+    let token = getToken();
+    if (token != null && token != "undefined" && token != undefined) {
+      headers = {
+        ...headers,
+        Authorization: `Bearer ${token}`,
+      };
+    }
+
+    return headers;
+  };
 
   const useAxios = async (url, method, payload = {}) => {
     toggleLoadersAndDatas(true, 50, data);
@@ -37,6 +85,7 @@ export const HttpContext = ({ children }) => {
       method,
       data: payload,
       onUploadProgress: uploadProgress,
+      headers: createHeaders(),
     })
       .then((res) => {
         toggleLoadersAndDatas(false, 100, res.data);
@@ -58,6 +107,7 @@ export const HttpContext = ({ children }) => {
     useAxios,
     progress,
     data,
+    setJWT,
   };
 
   return (

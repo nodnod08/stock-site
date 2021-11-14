@@ -1,32 +1,63 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import useForm from "../../hooks/useForm";
 
 import { httpContextProvider } from "../../context/httpContext";
 import { alertProvider } from "../../context/alert";
+import { authorizationProvider } from "./../../context/authorizeContext";
+
 import Alert from "./Alert";
 
 function LoginForm() {
   const [email, setEmail] = useForm("");
   const [password, setPassword] = useForm("");
+  const [remember, setRemember] = useForm(false);
 
-  const { loading, useAxios, progress, data } = useContext(httpContextProvider);
+  const { loading, useAxios, progress, data, setJWT } =
+    useContext(httpContextProvider);
 
   const { show } = useContext(alertProvider);
+
+  const { setAuthorization } = useContext(authorizationProvider);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const payload = {
       email,
       password,
+      remember,
     };
 
     let response = await useAxios(`/api/user/login`, "post", payload);
   };
 
+  useEffect(() => {
+    if (data.success) {
+      async function setJWTSession() {
+        await setJWT(data.data);
+      }
+
+      if (!data.data.remember) {
+        setJWTSession();
+      }
+
+      const { id, email, firstName, lastName } = data.data.details;
+      setAuthorization({
+        wasChecked: true,
+        isAuthorized: true,
+        user: {
+          firstName,
+          lastName,
+          email,
+          id,
+        },
+      });
+    }
+  }, [data.data]);
+
   return (
     <>
       <form autoComplete="off">
-        {show && (
+        {show && !data.success && (
           <Alert
             type={data.success ? "success" : "error"}
             message={data.message}
@@ -76,6 +107,22 @@ function LoginForm() {
         <a className="px-3 mt-3 hover:text-blue-500 text-xs" href="">
           Forgot you password?
         </a>
+        <div className="px-4 mt-2 flex items-start">
+          <div className="flex items-center h-5">
+            <input
+              id="remember"
+              value={remember}
+              onChange={setRemember}
+              type="checkbox"
+              className="focus:ring-blue-300 ring-0 focus:ring ring-offset-1 h-4 w-4 text-blue-300 border-blue-300 rounded"
+            />
+          </div>
+          <div className="ml-3 text-sm">
+            <label htmlFor="remember" className="font-medium text-gray-700">
+              Remember Me
+            </label>
+          </div>
+        </div>
         <div className="mt-5 px-3">
           <button
             disabled={loading}
