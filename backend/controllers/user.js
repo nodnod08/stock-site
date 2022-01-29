@@ -63,7 +63,9 @@ export default class UserController {
 
     function manageAuthCookie(remember, token) {
       if (remember) {
+        console.log(remember_days);
         res.cookie("auth.token", token, {
+          domain: "http://localhost:8080",
           expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * remember_days),
           httpOnly: process.env.NODE_ENV == "production" ? true : false,
         });
