@@ -4,4 +4,4 @@ src/backend/utils/keys/*
 frontend/node_modules/*
 frontend/dist/*
 public/*
-frontend/public/assets/images/
+frontend/public/assets/files/protected/*

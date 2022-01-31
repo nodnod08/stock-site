@@ -29,7 +29,8 @@ export default class ItemController {
           "frontend",
           "public",
           "assets",
-          "images",
+          "files",
+          "protected",
           `user_${req.body.user_id}`,
           `${req.body.category}`
         );
