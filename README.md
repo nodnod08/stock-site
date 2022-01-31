@@ -4,8 +4,11 @@
 * This application has the ff. features
   
   Ecommerce
+  
   Real Time Chat with other users
+  
   Authentication
+  
   File Upload
   
 --- .env needed content at root directory ---
