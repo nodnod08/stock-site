@@ -2,6 +2,7 @@ import React, { useEffect, forwardRef, useImperativeHandle } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import validator from "@/hooks/useValidate";
 import useCustom from "@/hooks/useCustom";
+import InputFile from "@/components/reusable/inputFile";
 
 // redux actions
 import {
@@ -36,15 +37,29 @@ const MainSpec = forwardRef((props, ref) => {
     weight: {
       validation: ["required"],
     },
+    image: {
+      validation: ["required"],
+    },
+    image2: {
+      validation: ["required"],
+    },
   };
 
   const [data, setData, spreadData, reset] = useCustom({
-    product_name: "",
-    product_code: "",
-    length: "",
-    width: "",
-    color: "",
-    weight: "",
+    product_name: "Software 1",
+    product_code: "Software code",
+    length: "12 inches",
+    width: "10 inches",
+    color: "White",
+    weight: "500 grams/ .5kg",
+    image: {
+      fileName: "",
+      value: "",
+    },
+    image2: {
+      fileName: "",
+      value: "",
+    },
   });
 
   const [errors, errorCount, validate, onFormSubmit] = validator(
@@ -117,8 +132,8 @@ const MainSpec = forwardRef((props, ref) => {
       </div>
       <div className="mb-4">
         <input
-          type="number"
-          placeholder="Length (Inch)"
+          type="text"
+          placeholder="Length"
           autoComplete="off"
           className={`input-field-${
             errors.hasOwnProperty("length")
@@ -137,8 +152,8 @@ const MainSpec = forwardRef((props, ref) => {
       </div>
       <div className="mb-4">
         <input
-          type="number"
-          placeholder="Width (Inch)"
+          type="text"
+          placeholder="Width"
           autoComplete="off"
           className={`input-field-${
             errors.hasOwnProperty("width")
@@ -178,7 +193,7 @@ const MainSpec = forwardRef((props, ref) => {
       <div className="mb-4">
         <input
           type="text"
-          placeholder="Weight (Grams)"
+          placeholder="Weight"
           autoComplete="off"
           className={`input-field-${
             errors.hasOwnProperty("weight")
@@ -193,6 +208,48 @@ const MainSpec = forwardRef((props, ref) => {
             setData(event);
             validate(event);
           }}
+        />
+      </div>
+      <div className="mb-4">
+        <InputFile
+          type="file"
+          placeholder="First Image"
+          autoComplete="off"
+          className={`input-field-${
+            errors.hasOwnProperty("image")
+              ? errors.image.touch
+                ? "error"
+                : "info"
+              : "info"
+          }`}
+          name="image"
+          fileName={data.image.fileName}
+          onChange={(event) => {
+            setData(event);
+            validate(event);
+          }}
+          accept="image/png, image/gif, image/jpeg"
+        />
+      </div>
+      <div className="mb-4">
+        <InputFile
+          type="file"
+          placeholder="Second Image"
+          autoComplete="off"
+          className={`input-field-${
+            errors.hasOwnProperty("image2")
+              ? errors.image2.touch
+                ? "error"
+                : "info"
+              : "info"
+          }`}
+          name="image2"
+          fileName={data.image2.fileName}
+          onChange={(event) => {
+            setData(event);
+            validate(event);
+          }}
+          accept="image/png, image/gif, image/jpeg"
         />
       </div>
     </div>

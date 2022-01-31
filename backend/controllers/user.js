@@ -61,17 +61,6 @@ export default class UserController {
       expiresIn: remember ? `${remember_days}d` : not_remember,
     };
 
-    function manageAuthCookie(remember, token) {
-      if (remember) {
-        console.log(remember_days);
-        res.cookie("auth.token", token, {
-          domain: "http://localhost:8080",
-          expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * remember_days),
-          httpOnly: process.env.NODE_ENV == "production" ? true : false,
-        });
-      }
-    }
-
     let user = await UserDao.findUser({ email });
 
     if (!user) return next(new Error("Incorrect credentials"));
@@ -87,7 +76,6 @@ export default class UserController {
         issue_at: Date.now(),
       };
       const token = jwt.sign(details, PRIVATE_KEY, opts);
-      manageAuthCookie(remember, token);
       res.send({
         success: true,
         error: false,
@@ -95,6 +83,7 @@ export default class UserController {
           details,
           token,
           remember,
+          days: remember_days,
         },
         message: `login success`,
       });
@@ -103,7 +92,6 @@ export default class UserController {
 
   static async checkAuthentication(req, res, next) {
     const { token } = req.body;
-
     jwt.verify(token, PUBLIC_KEY, async function (err, decoded) {
       if (!err) {
         if (decoded != null && decoded != "undefined" && decoded != undefined) {

@@ -42,3 +42,11 @@
 .btn-disabled {
   @apply cursor-not-allowed opacity-25;
 }
+
+.reusable-input-file {
+  @apply hidden;
+}
+
+.label-reusable-input-file {
+  @apply inline-block px-3 py-1 border border-gray-500 cursor-pointer rounded-lg text-sm;
+}

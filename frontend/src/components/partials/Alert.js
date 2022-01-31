@@ -1,6 +1,6 @@
 import React from "react";
 
-const Alert = ({ heading, message, type }) => {
+const Alert = ({ heading, message, type, className }) => {
   let classes = "";
 
   switch (type) {
@@ -20,7 +20,7 @@ const Alert = ({ heading, message, type }) => {
 
   return (
     <div
-      className={`border-t-4 rounded-b px-4 py-3 shadow-md ${classes}`}
+      className={`border-t-4 rounded-b px-4 py-3 shadow-md ${classes} ${className}`}
       role="alert"
     >
       <div className="flex">

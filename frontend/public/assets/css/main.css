@@ -32075,6 +32075,25 @@ video {
   opacity: 0.25;
 }
 
+.reusable-input-file {
+  display: none;
+}
+
+.label-reusable-input-file {
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  border-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgba(107, 114, 128, var(--tw-border-opacity));
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;

@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 
 import RoleDao from "./backend/daos/role.js";
 import UserDao from "./backend/daos/user.js";
+import ItemDao from "./backend/daos/item.js";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ MongoClient.connect(process.env.MONGODB, {
     // insert DAO here
     RoleDao.initialize(client.db(), client);
     UserDao.initialize(client.db(), client);
+    ItemDao.initialize(client.db(), client);
 
     app.listen(port, () =>
       console.log(`⚡ Server is now running on port ${port} \n`)

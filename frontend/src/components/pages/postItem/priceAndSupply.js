@@ -39,12 +39,12 @@ const PriceSupply = forwardRef((props, ref) => {
   };
 
   const [data, setData, spreadData, reset] = useCustom({
-    price: "",
-    discount: "",
-    voucher: "",
-    quantity: "10",
-    is_on_stock: "",
-    supply_delivery_interval: "",
+    price: 800,
+    discount: 0,
+    voucher: "My secret voucher",
+    quantity: 10,
+    is_on_stock: "On Stock",
+    supply_delivery_interval: "Weekly",
   });
 
   const [errors, errorCount, validate, onFormSubmit] = validator(
@@ -77,7 +77,7 @@ const PriceSupply = forwardRef((props, ref) => {
     <div>
       <div className="mb-4">
         <input
-          type="text"
+          type="number"
           placeholder="Price"
           autoComplete="off"
           className={`input-field-${
@@ -97,7 +97,7 @@ const PriceSupply = forwardRef((props, ref) => {
       </div>
       <div className="mb-4">
         <input
-          type="text"
+          type="number"
           placeholder="Discount Price"
           autoComplete="off"
           className={`input-field-${
@@ -157,7 +157,7 @@ const PriceSupply = forwardRef((props, ref) => {
       </div>
       <div className="mb-4">
         <select
-          placeholder="Is On Stock"
+          placeholder="Stock"
           autoComplete="off"
           className={`input-field-${
             errors.hasOwnProperty("is_on_stock")

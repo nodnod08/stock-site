@@ -12,7 +12,7 @@ function LoginForm() {
   const [password, setPassword] = useForm("");
   const [remember, setRemember] = useForm(false);
 
-  const { loading, useAxios, progress, data, setJWT } =
+  const { loading, useAxios, progress, data, setJWT, setJWTCookie } =
     useContext(httpContextProvider);
 
   const { show } = useContext(alertProvider);
@@ -36,8 +36,14 @@ function LoginForm() {
         await setJWT(data.data);
       }
 
+      async function SETJWTCookie() {
+        await setJWTCookie(data, data);
+      }
+
       if (!data.data.remember) {
         setJWTSession();
+      } else {
+        SETJWTCookie();
       }
 
       const { id, email, firstName, lastName } = data.data.details;

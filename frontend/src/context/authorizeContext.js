@@ -58,7 +58,7 @@ export const AuthorizationContext = ({ children }) => {
       })
       .then((res) => {
         if (res.data.success) {
-          const { firstName, lastName, email, id } = res.data.data.details;
+          const { firstName, lastName, email, _id } = res.data.data.details;
           setAuthorization({
             isAuthorized: true,
             wasChecked: true,
@@ -66,7 +66,7 @@ export const AuthorizationContext = ({ children }) => {
               firstName,
               lastName,
               email,
-              id,
+              id: _id,
             },
           });
         } else {

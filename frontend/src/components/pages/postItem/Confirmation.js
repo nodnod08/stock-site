@@ -24,7 +24,10 @@ function Confirmation({ stepNames }) {
                     .split("_")
                     .map((pn) => pn.charAt(0).toUpperCase() + pn.slice(1))
                     .join(" ")}{" "}
-                  : {data[keys[index]][propertyName]}
+                  :{" "}
+                  {typeof data[keys[index]][propertyName] == "object"
+                    ? data[keys[index]][propertyName].fileName
+                    : data[keys[index]][propertyName]}
                 </p>
               ))}
           </div>

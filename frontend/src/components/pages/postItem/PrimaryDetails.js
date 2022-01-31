@@ -45,14 +45,14 @@ const PrimaryDetails = forwardRef((props, ref) => {
   };
 
   const [data, setData, spreadData, reset] = useCustom({
-    category: "",
-    made_in: "",
-    brand: "",
-    months_of_use: "",
-    status: "",
-    mall_store_price: "",
-    serial_number: "",
-    model_number: "",
+    category: "Software",
+    made_in: "Philippines",
+    brand: "My brand",
+    months_of_use: 0,
+    status: "Working",
+    mall_store_price: 5000,
+    serial_number: "My serial number",
+    model_number: "My model number",
   });
 
   const [errors, errorCount, validate, onFormSubmit] = validator(
@@ -110,7 +110,7 @@ const PrimaryDetails = forwardRef((props, ref) => {
           <option value="Desktop">Desktop</option>
           <option value="Software">Software</option>
           <option value="Program">Program</option>
-          <option value="Cable/Port">Cable / Port</option>
+          <option value="Cable or Port">Cable or Port</option>
           <option value="ProductKey(s)">Product Key(s)</option>
         </select>
       </div>

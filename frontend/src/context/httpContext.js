@@ -45,9 +45,25 @@ export const HttpContext = ({ children }) => {
     return "";
   };
 
+  let setCookie = (name, value, days) => {
+    var expires = "";
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+      expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+  };
+
   let setJWT = (data) => {
     return new Promise(function (res, rej) {
       res(sessionStorage.setItem("auth.token", data.token));
+    });
+  };
+
+  let setJWTCookie = (data) => {
+    return new Promise(function (res, rej) {
+      res(setCookie("auth.token", data.data.token, data.data.days));
     });
   };
 
@@ -65,7 +81,7 @@ export const HttpContext = ({ children }) => {
 
   let createHeaders = () => {
     let headers = {
-      "Content-Type": "application/json",
+      "Content-Type": "multipart/form-data",
     };
     let token = getToken();
     if (token != null && token != "undefined" && token != undefined) {
@@ -108,6 +124,7 @@ export const HttpContext = ({ children }) => {
     progress,
     data,
     setJWT,
+    setJWTCookie,
   };
 
   return (

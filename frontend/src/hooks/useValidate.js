@@ -50,7 +50,15 @@ const test = (validations, data) => {
   };
 
   let validate = (event) => {
-    validateField(event.target.name, event.target.value);
+    event.persist();
+    if (event.target.type == "file") {
+      validateField(event.target.name, {
+        fileName: event.target.files[0].name,
+        value: event.target.files[0],
+      });
+    } else {
+      validateField(event.target.name, event.target.value);
+    }
   };
 
   let validateAndReturn = (field, value) => {

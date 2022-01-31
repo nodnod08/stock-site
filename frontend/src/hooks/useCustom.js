@@ -4,10 +4,20 @@ const handleState = (initial) => {
   const [state, setState] = useState(initial);
 
   const handleChange = (event) => {
-    setState({
-      ...state,
-      [event.target.name]: event.target.value,
-    });
+    if (event.target.type == "file") {
+      setState({
+        ...state,
+        [event.target.name]: {
+          fileName: event.target.files[0].name,
+          value: event.target.files[0],
+        },
+      });
+    } else {
+      setState({
+        ...state,
+        [event.target.name]: event.target.value,
+      });
+    }
   };
 
   const reset = (event) => {
